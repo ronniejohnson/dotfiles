@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+# finished: a quick script to notify you when a command is done using Mountain Lion notifications
+# It grabs the current folder as the title and takes one argument as the message
+# Example: make && make install && finished "Done compiling" || finished "compiler failed"
+#
+# Needs the terminal-notifier gem : `gem install terminal-notifier`
+# Can alternately be used with the CLI <https://github.com/alloy/terminal-notifier>
+# (remove require block below and swap comment lines at the bottom)
+ 
+require 'rubygems'
+require 'terminal-notifier'
+  
+message = ARGV[0] || "Task completed"
+project = Dir.pwd.split('/')[-3..-1].join('/')
+activate = 'com.googlecode.iterm2'
+
+TerminalNotifier.notify(message, :activate => activate, :title => "Finished in #{project}")
+# %x{/usr/bin/terminal-notifier -message "#{message}" -title "Finished in #{project}" -activate #{activate}}

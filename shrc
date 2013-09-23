@@ -14,7 +14,7 @@ PATH=$PATH:~/bin
 PATH=$PATH:$GRAILS_HOME/bin
 PATH=$PATH:/opt/local/bin
 PATH=$PATH:/usr/local/freetds/bin
-PATH=$PATH:~/scripts
+PATH=$PATH:~/.dotfiles/scripts
 export PATH
 
 ############################
