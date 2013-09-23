@@ -1,4 +1,14 @@
-# Ryan Bates Dot Files
+# Steve Hanson's Dot Files - Forked from Ryan Bates
+
+## Steve's Notes
+
+To install, just fork and then clone this to any folder on your system (I chose `~/.dotfiles`). Then run the rakefile script. This will remove your existing `.vimrc, .zshrc, .irbrc, .gvimrc, .gemrc, .gitconifg.erb, .oh-my-zsh, .vim` files/directories in your home directory. Back these up before running the script! If I was fluent enough in ruby scripting, I would try to automate that ... 
+
+The script then creates symlinks for files in your `.dotfiles` folder to your home directory. This enables you to make edits in your `.dotfiles` directory and then push the changes back up to GitHub.
+
+If you want your terminal to look cool, like mine, go to terminal preferences and import the `Ubuntu-steve.terminal` file.
+
+## Begin Ryan Bates Documentation
 
 These are config files to set up a system the way I like it. It now uses [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh). If you would like to see my old, custom Bash and ZSH config, check out [this branch](https://github.com/ryanb/dotfiles/tree/custom-bash-zsh)
 
