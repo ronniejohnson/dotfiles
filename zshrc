@@ -45,13 +45,16 @@ plugins=(git osx)
 
 # Added steve - To fix failed autocompletion of dotfiles, eg "git add .oh<tab>"
 # http://stackoverflow.com/questions/9810327/git-tab-autocompletion-is-useless-can-i-turn-it-off-or-optimize-it/9810485#9810485
-__git_files () { 
-    _wanted files expl 'local files' _files     
+__git_files () {
+    _wanted files expl 'local files' _files
 }
 
 source $ZSH/oh-my-zsh.sh
 
-source .shrc
+source $HOME/.shrc
 
 # Customize to your needs...
 # export PATH=$PATH:/Users/stevehanson/.gvm/vertx/current/bin:/Users/stevehanson/.gvm/springboot/current/bin:/Users/stevehanson/.gvm/lazybones/current/bin:/Users/stevehanson/.gvm/groovyserv/current/bin:/Users/stevehanson/.gvm/groovy/current/bin:/Users/stevehanson/.gvm/griffon/current/bin:/Users/stevehanson/.gvm/grails/current/bin:/Users/stevehanson/.gvm/gradle/current/bin:/Users/stevehanson/.rvm/gems/ruby-2.0.0-p195/bin:/Users/stevehanson/.rvm/gems/ruby-2.0.0-p195@global/bin:/Users/stevehanson/.rvm/rubies/ruby-2.0.0-p195/bin:/Users/stevehanson/.rvm/bin:/Applications/MAMP/bin/php/php5.4.10/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/gradle-1.5/bin:/usr/local/rabbitmq_server-3.0.4/sbin:/usr/local/mongodb-osx-x86_64-2.4.2/bin:/Users/stevehanson/dev/app/Play-2.1.1:/Users/stevehanson/bin:/Users/stevehanson/dev/app/grails-2.2.4/bin:/opt/local/bin:/usr/local/freetds/bin:/Users/stevehanson/scripts
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

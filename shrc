@@ -1,31 +1,81 @@
 alias cddl="cd ~/Downloads"
 alias cdnode="cd ~/dev/node"
-alias phplogs="tail -f /Applications/MAMP/logs/php_error.log"
-alias newhost="subl /Applications/MAMP/conf/apache/extra/httpd-vhosts.conf /private/etc/hosts"
+alias phplogs="tail -n 1000 -f /Applications/MAMP/logs/php_error.log"
+alias newhost="subl /Applications/MAMP/conf/apache/extra/httpd-vhosts.conf /Applications/MAMP/conf/apache/httpd.conf /private/etc/hosts"
+alias vhost="subl /Applications/MAMP/conf/apache/extra/httpd-vhosts.conf"
+alias phpini="subl /Applications/MAMP/bin/php/php5.4.10/conf/php.ini"
+alias dotfiles="subl ~/.dotfiles"
+alias shrc="subl ~/.dotfiles/shrc"
+alias snippets="subl ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User"
+alias guard_docs="guard --guardfile /Users/stevehanson/dev/fol/freemanCo/docs/Guardfile"
+alias ec2="ssh -i ~/.ssh/amazon-private-key.pem ec2-user@54.200.123.124"
+alias ios="open -a iPhone\ Simulator"
+alias startjenkins="sudo launchctl load /Library/LaunchDaemons/org.jenkins-ci.plist"
+alias stopjenkins="sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist"
+alias chfish="chsh -s /opt/local/bin/fish"
+alias chzsh="chsh -s /bin/zsh"
+alias ch="open -a \"Google Chrome\""
 
-export GRAILS_HOME=~/dev/app/grails-2.2.4
+## GIT ALIASES ##
 
-export FREETDSCONF=/usr/local/freetds/etc/freetds.conf
-export TDSVER=8.0
+alias ggraph="git log --all --graph --decorate --oneline --simplify-by-decoration"
+alias glog="git log -n 20 | head"
+alias gdiff="git diff | head"
+alias gdiffstaged="git diff --cached"
+alias gs="git status"
+
+
+# fix oh-my-zshissue with '#' being misinterpreted by bower
+alias bower='noglob bower'
+
+export XD_HOME=~/dev/tech-meeting/spring-xd-1.0.0.M3/xd
+export ANT_HOME=~/dev/app/ant-1.9.2
+export MAVEN_HOME=~/dev/app/apache-maven-3.1.1
+export M2_HOME=~/dev/app/apache-maven-3.1.1
+export SCALA_HOME=~/dev/app/scala-2.11.0
+export ARTIFACTORY_HOME=~/dev/app/artifactory-3.2.0
+export jbossDir=/Users/stevehanson/dev/app/jboss-4.2.3
 
 PATH=/Applications/MAMP/bin/php/php5.4.10/bin:$PATH
-PATH=$PATH:/usr/local/gradle-1.5/bin:/usr/local/rabbitmq_server-3.0.4/sbin:/usr/local/mongodb-osx-x86_64-2.4.2/bin:~/dev/app/Play-2.1.1
+PATH=$PATH:/usr/local/gradle-1.5/bin:/usr/local/rabbitmq_server-3.0.4/sbin:/usr/local/mongodb-osx-x86_64-2.4.2/bin:~/dev/app/Play-2.2.2
 PATH=$PATH:~/bin
-PATH=$PATH:$GRAILS_HOME/bin
 PATH=$PATH:/opt/local/bin
 PATH=$PATH:/usr/local/freetds/bin
 PATH=$PATH:~/.dotfiles/scripts
+PATH=$PATH:~/dev/script/bin
+PATH=$PATH:/usr/local/aws-2.6.0/eb/linux/python2.7
+PATH=$PATH:~/.rvm/rubies/jruby-1.7.4/bin
+PATH=$PATH:$MAVEN_HOME/bin
+PATH=$PATH:$ANT_HOME/bin
+PATH=$PATH:$SCALA_HOME/bin
+PATH=$PATH:~/dev/app/apache-jmeter-2.11/bin
 export PATH
 
 ############################
 ## My Functions
 ############################
-function mvn() { command mvn "$@" && finished "mvn $@ finished successfully" || finished "mvn $@ failed" ; }
-function ant() { command ant "$@" && finished "ant $@ finished successfully" || finished "ant $@ failed" ; }
-function ports() { lsof -w -n -i tcp:8080; } # Find which process is using 8080, then run kill -9 {pid}
+# function mvn() { command mvn "$@" && finished "mvn $@ finished successfully" || finished "mvn $@ failed" ; }
+# function ant() { command ant "$@" && finished "ant $@ finished successfully" || finished "ant $@ failed" ; }
+function ports() { # Find which process is using 8080, then run kill -9 {pid}
+    local port="${1:-8080}"
+    lsof -wni tcp:${port};
+}
 function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+function dev() { cd ~/dev/$@; }
+function server() {
+    local port="${1:-8000}"
+    open "http://localhost:${port}/" && python -m SimpleHTTPServer "$port"
+}
+
+# alias "c/{x}" to do "cd ~/dev/{x}" with tab completion
+c() { cd ~/dev/$1; }
+_c() { _files -W ~/dev -/; }
+compdef _c c
+
+h() { cd ~/$1; }
+_h() { _files -W ~/ -/; }
+compdef _h h
 
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "/Users/stevehanson/.gvm/bin/gvm-init.sh" ]] && source "/Users/stevehanson/.gvm/bin/gvm-init.sh"
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
