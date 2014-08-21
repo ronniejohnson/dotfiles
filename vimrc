@@ -4,6 +4,61 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Config for Powerline
+set laststatus=2
+" set t_co=256
+" let g:Powerline_symbols = 'unicode'
+" set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
+
+" Vundle
+
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Bundle 'digitaltoad/vim-jade'
+Plugin 'kien/ctrlp.vim'                   " fuzzy file finder
+Plugin 'tpope/vim-commentary'             " easily use comments
+Bundle "mattn/emmet-vim"
+Bundle "tpope/vim-haml"
+Bundle "tpope/vim-rails"
+Plugin 'tpope/vim-markdown'               " markdown syntax & indent
+Plugin 'heartsentwined/vim-emblem'        " emblem syntax & indent
+Plugin 'nathanaelkane/vim-indent-guides'  " Indent guides to keep your code aligned
+Plugin 'christoomey/vim-tmux-navigator'   " easy nav b/t vim and tmux
+Plugin 'airblade/vim-gitgutter'           " git diff in gutter
+Plugin 'terryma/vim-multiple-cursors'     " multiple cursors
+
+" List other plugins here, eg. Plugin 'abc'
+
+call vundle#end()
+filetype plugin indent on
+
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERD TREE TOGGLE
+" press F4 to lint!
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <C-k><C-b> :NERDTreeToggle<CR>
+" hidden files
+let NERDTreeShowHidden=1
+
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -13,6 +68,9 @@ set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
+
+" Disable annoying swap files
+set noswapfile
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -94,21 +152,21 @@ let mapleader = ","
 map <Leader>R :e doc/README_FOR_APP<CR>
 
 " Leader shortcuts for Rails commands
-map <Leader>m :Rmodel 
-map <Leader>c :Rcontroller 
-map <Leader>v :Rview 
-map <Leader>u :Runittest 
-map <Leader>f :Rfunctionaltest 
-map <Leader>tm :RTmodel 
-map <Leader>tc :RTcontroller 
-map <Leader>tv :RTview 
-map <Leader>tu :RTunittest 
-map <Leader>tf :RTfunctionaltest 
-map <Leader>sm :RSmodel 
-map <Leader>sc :RScontroller 
-map <Leader>sv :RSview 
-map <Leader>su :RSunittest 
-map <Leader>sf :RSfunctionaltest 
+map <Leader>m :Rmodel
+map <Leader>c :Rcontroller
+map <Leader>v :Rview
+map <Leader>u :Runittest
+map <Leader>f :Rfunctionaltest
+map <Leader>tm :RTmodel
+map <Leader>tc :RTcontroller
+map <Leader>tv :RTview
+map <Leader>tu :RTunittest
+map <Leader>tf :RTfunctionaltest
+map <Leader>sm :RSmodel
+map <Leader>sc :RScontroller
+map <Leader>sv :RSview
+map <Leader>su :RSunittest
+map <Leader>sf :RSfunctionaltest
 
 " Hide search highlighting
 map <Leader>h :set invhls <CR>
@@ -168,6 +226,8 @@ endif
 " colorscheme vividchalk
 " highlight NonText guibg=#060606
 " highlight Folded  guibg=#0A0A0A guifg=#9090D0
+colorscheme smyck
+
 
 " Numbers
 set number
@@ -191,17 +251,3 @@ let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 set tags=./tags;
 
 let g:fuf_splitPathMatching=1
-
-" Open URL
-command -bar -nargs=1 OpenURL :!open <args>
-function! OpenURL()
-  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
-  echo s:uri
-  if s:uri != ""
-	  exec "!open \"" . s:uri . "\""
-  else
-	  echo "No URI found in line."
-  endif
-endfunction
-map <Leader>w :call OpenURL()<CR>
-
