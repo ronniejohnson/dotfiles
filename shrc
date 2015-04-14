@@ -1,15 +1,23 @@
 alias dotfiles="vim ~/.dotfiles"
-alias shrc="vim ~/.dotfiles/shrc"
-alias ec2="ssh -i ~/.ssh/amazon-private-key.pem ec2-user@54.200.123.124"
+alias shrc="subl ~/.dotfiles/shrc"
 alias ios="open -a iPhone\ Simulator"
 alias chzsh="chsh -s /bin/zsh"
 alias ch="open -a \"Google Chrome\""
 alias refresh="source ~/.zshrc"
 alias tmux="tmux -2"  # -2 forces tmux to use 256 colors
+alias json="pbpaste | jq . | pbcopy"
+alias st="open -a SourceTree"
+alias md="open -a Byword"
+alias byword="open -a Byword"
+alias s="subl ."
 
 alias bake="bundle exec rake"
 alias bails="bundle exec rails"
 alias boreman="bundle exec foreman"
+alias bexec="bundle exec"
+alias bspec="bundle exec rspec"
+alias rc="bundle exec rails c"
+alias ms="make start"
 
 alias kts='tmux ls | awk '\''{print $1}'\'' | sed '\''s/://g'\'' | xargs -I{} tmux kill-session -t {}'
 
@@ -17,27 +25,40 @@ alias kts='tmux ls | awk '\''{print $1}'\'' | sed '\''s/://g'\'' | xargs -I{} tm
 alias bower='noglob bower'
 
 ## GIT ALIASES ##
-
 alias ggraph="git log --all --graph --decorate --oneline --simplify-by-decoration"
-alias glog="git log -n 20 | head"
-alias gdiffstaged="git diff --cached"
+alias gll="git log -n 20 | head"
+alias gdd="git branch -d"
 alias gs="git status"
 alias gp="git push"
+alias gpr="git pull --rebase"
 alias gds="git diff --cached"
 alias guncommit="git reset --soft HEAD^"
 alias gempty="git commit -am \"empty\" --allow-empty"
+alias gamend="git commit --amend --no-edit"
+alias gwip="git commit -am \"WIP\""
+alias gdw="git diff --word-diff"
+
+alias update_rbenv="cd ~/.rbenv/plugins/ruby-build; git pull"
+
+#Heroku
+alias hlogs="heroku logs -t --remote"
+alias hconfig='heroku config --remote'
+alias hc="heroku run rails c --remote"
+alias hbackup="heroku pgbackups:capture --remote"
+
+
 
 export GOPATH=~/go
 PATH=/usr/local/bin:/usr/local/sbin:/usr/local/lib/node:$PATH
-PATH=./bin:./vendor/bundle/bin:$PATH
+PATH=./bin:$PATH
 PATH=$PATH:/opt/local/bin
 PATH=$PATH:~/.dotfiles/scripts
 PATH=$PATH:~/bin
 PATH=$PATH:~/go/bin
-PATH=~/.rbenv/bin:~/.rbenv/shims:$PATH
-export PATH
-
+PATH=$PATH:~/.rbenv/bin:~/.rbenv/shims
 eval "$(rbenv init -)"
+PATH=./vendor/bundle/bin:$PATH
+export PATH
 
 ############################
 ## My Functions
@@ -47,7 +68,7 @@ function ports() { # Find which process is using 8080, then run kill -9 {pid}
     lsof -wni tcp:${port};
 }
 
-# mkdir and then cd to it
+# mkdir recursively and then cd to it
 function cdm () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 function server() {
@@ -69,17 +90,42 @@ function light() {
 }
 
 function sandbox() {
-    cd $(~/bin/generate_sandbox.py)
+ cd $(~/bin/generate_sandbox.py)
 }
+
+function hideHidden(){
+  defaults write com.apple.finder AppleShowAllFiles -bool NO
+  killall Finder
+}
+function showHidden(){
+  defaults write com.apple.finder AppleShowAllFiles -bool YES
+  killall Finder
+}
+
+# will dump a backup of the database, where $1 is the remote name
+# eg: dump production && import myapp_development
+function dump() curl -o latest.dump `heroku pgbackups:url --remote $1`
+
+# will import a backup of the database, where $1 is the database name
+function import() pg_restore --verbose --clean --no-acl --no-owner -h localhost -U `whoami` -d $1 latest.dump
+
 
 # alias "c/{x}" to do "cd ~/dev/{x}" with tab completion
 c() { cd ~/dev/$1; }
 _c() { _files -W ~/dev -/; }
 compdef _c c
 
+cur() { cd ~/dev/current/$1; }
+_cur() { _files -W ~/dev/current -/; }
+compdef _cur cur
+
 b() { cd ~/dev/bits/$1; }
 _b() { _files -W ~/dev/bits -/; }
 compdef _b b
+
+bs() { cd ~/dev/bits/$1; s; make start; }
+_bs() { _files -W ~/dev/bits -/; }
+compdef _bs bs
 
 h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }

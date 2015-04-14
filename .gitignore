@@ -1,3 +1,7 @@
 vim/.netrwhist
 vim/.VimballRecord
 vim/bundle
+
+Package\ Control.cache
+*.*-ca-bundle
+*.exe

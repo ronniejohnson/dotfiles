@@ -27,7 +27,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Bundle 'digitaltoad/vim-jade'
+Plugin 'digitaltoad/vim-jade'
 Plugin 'kien/ctrlp.vim'                   " fuzzy file finder
 Plugin 'tpope/vim-commentary'             " easily use comments
 Bundle "mattn/emmet-vim"
@@ -39,8 +39,9 @@ Plugin 'nathanaelkane/vim-indent-guides'  " Indent guides to keep your code alig
 Plugin 'christoomey/vim-tmux-navigator'   " easy nav b/t vim and tmux
 Plugin 'airblade/vim-gitgutter'           " git diff in gutter
 Plugin 'terryma/vim-multiple-cursors'     " multiple cursors
-
-" List other plugins here, eg. Plugin 'abc'
+Plugin 'mkitt/tabline.vim'                " vim tab styles
+Plugin 'tpope/vim-eunuch'                 " add move, chmod, find, locate, remove commands
+Plugin 'mustache/vim-mustache-handlebars' " mustache/handlebars syntax & indent
 
 call vundle#end()
 filetype plugin indent on
@@ -57,7 +58,8 @@ python del powerline_setup
 nnoremap <C-k><C-b> :NERDTreeToggle<CR>
 " hidden files
 let NERDTreeShowHidden=1
-
+" remap help to f1 to allow "?" to search backward
+let NERDTreeMapHelp='<f1>'
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -179,9 +181,21 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 " Normal mode: <Leader>t
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
+" Navigate tabs with C-left and C-right and open new tabs with C+n
+map <C-Left> <Esc>:tabprev<CR>
+map <C-Right> <Esc>:tabnext<CR>
+map <C-n> <Esc>:tabnew
+
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+
+" Ignore files/folders in ctrlp
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|node_modules|tmp|.sass-cache)$',
+  \ 'file': '\v\.(exe|so|dll|)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 " Duplicate a selection
 " Visual mode: D
@@ -201,9 +215,12 @@ nmap <F1> <Esc>
 imap <C-F> <C-R>=expand("%")<CR>
 
 " Maps autocomplete to tab
-imap <Tab> <C-N>
+" imap <Tab> <C-N>
 
 imap <C-L> <Space>=><Space>
+
+" Maps jj to escape
+:imap jj <Esc>
 
 " Display extra whitespace
 " set list listchars=tab:»·,trail:·

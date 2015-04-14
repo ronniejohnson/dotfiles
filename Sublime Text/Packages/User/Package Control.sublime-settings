@@ -1,0 +1,42 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Alignment",
+		"ApplySyntax",
+		"Better CoffeeScript",
+		"Color Highlighter",
+		"DocBlockr",
+		"Emblem.js Syntax Highlighting",
+		"Emmet",
+		"Fix Mac Path",
+		"GitGutter",
+		"GoSublime",
+		"Haml",
+		"Handlebars",
+		"Hipster Ipsum",
+		"Jade",
+		"JavaScriptNext - ES6 Syntax",
+		"JSX",
+		"Liquid",
+		"Markdown Extended",
+		"Markdown HTML Preview",
+		"MarkdownEditing",
+		"Mou Markdown App (OSX)",
+		"Open Finder",
+		"Package Control",
+		"Pretty JSON",
+		"RSpec",
+		"Sass",
+		"SCSS",
+		"SideBarEnhancements",
+		"SideBarGit",
+		"SnippetMaker",
+		"SublimeLinter",
+		"SublimeLinter-haml",
+		"SublimeLinter-jshint",
+		"SublimeLinter-ruby"
+	]
+}

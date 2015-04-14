@@ -1,0 +1,51 @@
+{
+	"auto_match_enabled": true,
+	"caret_extra_width": 1,
+	"caret_style": "phase",
+	"close_windows_when_empty": false,
+	"color_scheme": "Packages/User/Smyck (SL).tmTheme",
+	"copy_with_empty_selection": true,
+	"drag_text": false,
+	"draw_minimap_border": true,
+	"enable_tab_scrolling": false,
+	"file_exclude_patterns":
+	[
+		"*.scssc",
+		".DS_Store"
+	],
+	"folder_exclude_patterns":
+	[
+		".git",
+		"tmp/*"
+	],
+	"font_options":
+	[
+		"no_round"
+	],
+	"font_size": 18,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"MarkdownEditing",
+		"Better CoffeeScript",
+		"GoSublime",
+		"Rails"
+	],
+	"match_brackets_content": false,
+	"match_selection": false,
+	"match_tags": false,
+	"open_files_in_new_window": false,
+	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		100
+	],
+	"scroll_past_end": true,
+	"scroll_speed": 5.0,
+	"show_full_path": true,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"vintage_start_in_command_mode": true,
+	"word_wrap": true
+}

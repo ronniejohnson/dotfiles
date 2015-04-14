@@ -1,0 +1,19 @@
+<snippet>
+  <content><![CDATA[
+var ${1:MyModule} = (function(window, \$) {
+
+  var init = function init() {
+    $2
+  };
+  $3
+
+  return {
+    init: init
+  };
+})(window, jQuery);
+$0
+]]></content>
+  <tabTrigger>module</tabTrigger>
+  <scope>source.js</scope>
+  <description>JavaScript Module</description>
+</snippet>

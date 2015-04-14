@@ -1,0 +1,38 @@
+<snippet>
+  <content><![CDATA[
+var gulp = require('gulp');
+var sass = require('gulp-ruby-sass');
+var connect = require('gulp-connect');
+var runSequence = require('run-sequence');
+
+gulp.task('server', function() {
+  connect.server();
+});
+
+gulp.task('styles', function() {
+  return gulp.src('scss')
+    .pipe(sass({
+      style: 'nested'
+    }).on('error', handleError)) // keep watch from dying on error
+    .pipe(gulp.dest('css'));
+});
+
+
+// Rerun the tasks when a file changes
+gulp.task('watch', function() {
+  gulp.watch('scss', ['styles']);
+});
+
+gulp.task('default', ['styles', 'watch', 'server'])
+
+
+function handleError(err) {
+  console.log(err.toString());
+  this.emit('end');
+}
+]]></content>
+  <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+  <tabTrigger>gulp</tabTrigger>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <scope>source.js</scope>
+</snippet>

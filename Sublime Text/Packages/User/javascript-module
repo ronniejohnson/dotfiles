@@ -1,0 +1,9 @@
+<snippet>
+  <content><![CDATA[
+var ${1:moduleName} = (function(window, $) {
+  ${2}
+})(window, jQuery);
+]]></content>
+  <tabTrigger>mod</tabTrigger>
+  <!-- <scope>source.js</scope> -->
+</snippet>
