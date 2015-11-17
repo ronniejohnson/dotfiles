@@ -2,6 +2,9 @@ vim/.netrwhist
 vim/.VimballRecord
 vim/bundle
 
+privaterc
+/scripts/private
+
 Package\ Control.cache
 *.*-ca-bundle
 *.exe

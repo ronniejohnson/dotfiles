@@ -1,5 +1,7 @@
-alias dotfiles="vim ~/.dotfiles"
-alias shrc="subl ~/.dotfiles/shrc"
+## GENERAL ##
+alias editor="atom"
+alias dotfiles="editor ~/.dotfiles"
+alias shrc="editor ~/.dotfiles/shrc"
 alias ios="open -a iPhone\ Simulator"
 alias chzsh="chsh -s /bin/zsh"
 alias ch="open -a \"Google Chrome\""
@@ -7,73 +9,99 @@ alias refresh="source ~/.zshrc"
 alias tmux="tmux -2"  # -2 forces tmux to use 256 colors
 alias json="pbpaste | jq . | pbcopy"
 alias st="open -a SourceTree"
-alias md="open -a Byword"
-alias byword="open -a Byword"
 alias s="subl ."
+alias a="atom ."
+alias f="fdir"
 
-alias bake="bundle exec rake"
-alias bails="bundle exec rails"
-alias boreman="bundle exec foreman"
-alias bexec="bundle exec"
-alias bspec="bundle exec rspec"
-alias rc="bundle exec rails c"
-alias ms="make start"
-
-alias kts='tmux ls | awk '\''{print $1}'\'' | sed '\''s/://g'\'' | xargs -I{} tmux kill-session -t {}'
-
-# fix oh-my-zshissue with '#' being misinterpreted by bower
-alias bower='noglob bower'
-
-## GIT ALIASES ##
+## GIT ##
 alias ggraph="git log --all --graph --decorate --oneline --simplify-by-decoration"
 alias gll="git log -n 20 | head"
 alias gdd="git branch -d"
 alias gs="git status"
+alias gsa="git stash apply"
 alias gp="git push"
+alias g-="git checkout -"
 alias gpr="git pull --rebase"
 alias gds="git diff --cached"
 alias guncommit="git reset --soft HEAD^"
 alias gempty="git commit -am \"empty\" --allow-empty"
 alias gamend="git commit --amend --no-edit"
+alias ggc="git commit -m"
+alias gch="git checkout"
+alias gri="git rebase -i"
+alias grc="git rebase --continue"
 alias gwip="git commit -am \"WIP\""
 alias gdw="git diff --word-diff"
+alias gcb="current_branch"
+alias ggp="git push -u origin `(current_branch)`"
 
-alias update_rbenv="cd ~/.rbenv/plugins/ruby-build; git pull"
-
-#Heroku
+## HEROKU ##
 alias hlogs="heroku logs -t --remote"
 alias hconfig='heroku config --remote'
 alias hc="heroku run rails c --remote"
-alias hbackup="heroku pgbackups:capture --remote"
+alias hbackup="heroku pg:backups:capture --remote"
+alias hake="heroku run rake"
+alias nr="heroku addons:open newrelic"
+alias pt="heroku addons:open papertrail"
 
+## POSTGRES ##
+alias pglog="tail -f /usr/local/var/postgres/server.log"
+# run this if getting an error starting postgres after os x crash
+alias pgdeletepid="rm /usr/local/var/postgres/postmaster.pid"
+alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 
+## RUBY ##
+alias bake="bundle exec rake"
+alias bails="bundle exec rails"
+alias bm="bundle exec middleman"
+alias bailsprod="RAILS_ENV=production SECRET_KEY_BASE=abc bails s"
+alias boreman="bundle exec foreman"
+alias be="bundle exec"
+alias bspec="bundle exec rspec"
+alias rc="bundle exec rails c"
+alias ms="make start"
+alias springer="bundle exec spring stop && bundle exec spring start"
+alias springrspec="bundle exec spring binstub rspec"
 
-export GOPATH=~/go
+## MISCELLANEOUS ##
+alias kts='tmux ls | awk '\''{print $1}'\'' | sed '\''s/://g'\'' | xargs -I{} tmux kill-session -t {}'
+# fix oh-my-zshissue with '#' being misinterpreted by bower
+alias bower='noglob bower'
+# update rbenv ruby definitions. I prefer the rbenv-update plugin to this
+alias update_rebenv="cd ~/.rbenv/plugins/ruby-build; git pull"
+
+## PATH ##
 PATH=/usr/local/bin:/usr/local/sbin:/usr/local/lib/node:$PATH
-PATH=./bin:$PATH
+PATH=./bin:./vendor/bundle/bin:$PATH
 PATH=$PATH:/opt/local/bin
-PATH=$PATH:~/.dotfiles/scripts
+PATH=$PATH:~/.dotfiles/scripts:~/.dotfiles/scripts/private
 PATH=$PATH:~/bin
 PATH=$PATH:~/go/bin
 PATH=$PATH:~/.rbenv/bin:~/.rbenv/shims
 eval "$(rbenv init -)"
-PATH=./vendor/bundle/bin:$PATH
-export PATH
 
-############################
-## My Functions
-############################
-function ports() { # Find which process is using 8080, then run kill -9 {pid}
-    local port="${1:-8080}"
-    lsof -wni tcp:${port};
+export PATH
+export GOPATH=~/go
+
+## FUNCTIONS ##
+
+function ports() { # Find which process is using 3000 or supplied port, then run kill -9 {pid}
+  local port="${1:-3000}"
+  lsof -wni tcp:${port};
 }
 
 # mkdir recursively and then cd to it
 function cdm () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
+# find directory by name, recursive. Max depth is 6 or optionally specified
+function fdir() {
+  local depth="${2:-6}"
+  find . -maxdepth $depth -type d -name "*${1}*"
+}
+
 function server() {
-    local port="${1:-8000}"
-    python -m SimpleHTTPServer "$port"
+  local port="${1:-8000}"
+  python -m SimpleHTTPServer "$port"
 }
 
 function ghinit() {
@@ -102,6 +130,10 @@ function showHidden(){
   killall Finder
 }
 
+function showBundle() {
+  bundle show $1 | xargs subl
+}
+
 # will dump a backup of the database, where $1 is the remote name
 # eg: dump production && import myapp_development
 function dump() curl -o latest.dump `heroku pgbackups:url --remote $1`
@@ -110,23 +142,12 @@ function dump() curl -o latest.dump `heroku pgbackups:url --remote $1`
 function import() pg_restore --verbose --clean --no-acl --no-owner -h localhost -U `whoami` -d $1 latest.dump
 
 
-# alias "c/{x}" to do "cd ~/dev/{x}" with tab completion
+# alias "c {x}" to do "cd ~/dev/{x}" with tab completion
 c() { cd ~/dev/$1; }
 _c() { _files -W ~/dev -/; }
 compdef _c c
 
-cur() { cd ~/dev/current/$1; }
-_cur() { _files -W ~/dev/current -/; }
-compdef _cur cur
-
-b() { cd ~/dev/bits/$1; }
-_b() { _files -W ~/dev/bits -/; }
-compdef _b b
-
-bs() { cd ~/dev/bits/$1; s; make start; }
-_bs() { _files -W ~/dev/bits -/; }
-compdef _bs bs
-
+# alias "h {x}" to do "cd ~/{x}" with tab completion
 h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
 compdef _h h

@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+require 'time'
+require 'colorize'
+
+# How long have I worked today?
+# Usage:
+#   workday            => time b/t 8:30 - now
+#   workday 8:00       => time b/t 8:00 - now
+#   workday 8:00 5pm   => time b/t 8am - 5pm
+class Workday
+  attr_reader :start, :finish, :lunch_minutes
+
+  def initialize(options)
+    @start = Time.parse(options[:start] || '8:30')
+    @finish = Time.parse(options[:finish] || Time.now.to_s)
+  end
+
+  def fmt(time)
+    time.strftime("%I:%M%p")
+  end
+
+  def length(lunch_minutes = @lunch_minutes)
+    @lunch_minutes = lunch_minutes
+    (finish - start - lunch_seconds).duration
+  end
+
+  def lunch_seconds
+    lunch_minutes * 60
+  end
+
+  def print_workday
+    puts "Hey-o. OK, so you got in at #{fmt(start)} and are in the office till #{fmt(finish)}\n\n"
+    puts "You've been in the office for " + " #{length(0)} ".black.on_red + "\n\nAnd here's your workday after taking lunch:\n\n"
+    puts "Lunch\tWorkday"
+    puts "30 min\t#{length(30)}"
+    puts "45 min\t#{length(45)}"
+    puts "1 hr\t#{length(60)}"
+  end
+
+end
+
+# monkey-patch Numeric with duration method
+class Numeric
+  def duration
+    secs  = self.to_int
+    mins  = secs / 60
+    hours = mins / 60
+    days  = hours / 24
+
+    if days > 0
+      "#{days} days and #{hours % 24} hours"
+    elsif hours > 0
+      "#{hours} hours and #{mins % 60} minutes"
+    elsif mins > 0
+      "#{mins} minutes and #{secs % 60} seconds"
+    elsif secs >= 0
+      "#{secs} seconds"
+    end
+  end
+end
+
+def process_args
+  if ARGV[0]
+    if ARGV[1]
+      start = ARGV[0]
+      finish = ARGV[1]
+    else
+      start = ARGV[0]
+    end
+  end
+
+  {
+    start: start,
+    finish: finish
+  }
+end
+
+if ARGV[0] == 'help'
+  puts "Usage:\tworkday <start (8:30)> <finish (now)>"
+else
+  options = process_args
+
+  Workday.new(options).print_workday
+end
