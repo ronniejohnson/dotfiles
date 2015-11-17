@@ -16,20 +16,22 @@
 	"folder_exclude_patterns":
 	[
 		".git",
-		"tmp/*"
+		"tmp/*",
+		"node_modules/*"
 	],
 	"font_options":
 	[
 		"no_round"
 	],
-	"font_size": 18,
+	"font_size": 15,
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"MarkdownEditing",
 		"Better CoffeeScript",
 		"GoSublime",
-		"Rails"
+		"MarkdownEditing",
+		"Rails",
+		"RSpec"
 	],
 	"match_brackets_content": false,
 	"match_selection": false,
@@ -46,6 +48,6 @@
 	"tab_size": 2,
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
-	"vintage_start_in_command_mode": true,
+	"vintage_start_in_command_mode": false,
 	"word_wrap": true
 }

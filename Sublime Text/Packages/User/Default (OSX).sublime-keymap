@@ -1,5 +1,6 @@
 [
   { "keys": ["super+ctrl+u"], "command": "alignment" },
+  { "keys": ["ctrl+a"], "command": "Goto Definition" },
   { "keys": ["j", "j"], "command": "exit_insert_mode",
       "context":
       [
