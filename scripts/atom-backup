@@ -1,0 +1,6 @@
+mkdir -p ~/.dotfiles/.atom
+cp ~/.atom/config.cson ~/.dotfiles/.atom
+cp ~/.atom/keymap.cson ~/.dotfiles/.atom
+cp ~/.atom/snippets.cson ~/.dotfiles/.atom
+cp ~/.atom/styles.less ~/.dotfiles/.atom
+apm list --installed --bare > ~/.dotfiles/.atom/package-list.txt

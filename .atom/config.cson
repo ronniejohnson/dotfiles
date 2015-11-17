@@ -1,0 +1,52 @@
+"*":
+  editor:
+    preferredLineLength: 120
+    invisibles: {}
+    scrollPastEnd: true
+    fontSize: 17
+  core:
+    projectHome: "/Users/shanson/dev"
+    disabledPackages: [
+      "terminal-status"
+      "ruby-block"
+      "linter-ruby"
+      "ruby-test"
+      "language-ruby-on-rails"
+      "rails-snippets"
+      "rails-transporter"
+      "linter-haml"
+    ]
+    ignoredNames: [
+      "build/"
+    ]
+  "exception-reporting":
+    userId: "ee43f471-383f-0d07-f056-ee37c6d9c9a4"
+  welcome:
+    showOnStartup: false
+  metrics:
+    userId: "3492abb099d06507e03e25fca40838a9ee998fea"
+  pigments:
+    markerType: "dot"
+  "one-dark-ui": {}
+  "terminal-status": {}
+  emmet: {}
+  whitespace:
+    ensureSingleTrailingNewline: false
+  tabs:
+    enableVcsColoring: true
+  "fuzzy-finder":
+    useAlternateScoring: true
+  "tree-view": {}
+  docblockr: {}
+  "find-and-replace": {}
+  jshint:
+    supportLintingJsx: true
+".handlebars.html.text":
+  editor:
+    preferredLineLength: 120
+".erb.html.text":
+  editor:
+    preferredLineLength: 120
+".ruby.source":
+  editor:
+    preferredLineLength: 120

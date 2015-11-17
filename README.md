@@ -1,12 +1,25 @@
-# Steve Hanson's Dot Files - Forked from Ryan Bates
+# shanson's Dotfiles - Forked from Ryan Bates
 
-## Steve's Notes
+To install, just fork and then clone this to `~/.dotfiles`. Then run the rakefile script. This will remove your existing `.vimrc, .zshrc, .irbrc, .gvimrc, .gemrc, .gitconifg.erb, .oh-my-zsh, .vim` files/directories in your home directory. Back these up before running the script!
 
-To install, just fork and then clone this to any folder on your system (I chose `~/.dotfiles`). Then run the rakefile script. This will remove your existing `.vimrc, .zshrc, .irbrc, .gvimrc, .gemrc, .gitconifg.erb, .oh-my-zsh, .vim` files/directories in your home directory. Back these up before running the script! If I was fluent enough in ruby scripting, I would try to automate that ... 
+The script then creates symlinks for files in your `.dotfiles` folder to your home directory. This enables you to make edits to the version-controlled files in your `.dotfiles` directory.
 
-The script then creates symlinks for files in your `.dotfiles` folder to your home directory. This enables you to make edits in your `.dotfiles` directory and then push the changes back up to GitHub.
+## Atom Setup
 
-If you want your terminal to look cool, like mine, go to terminal preferences and import the `Ubuntu-steve.terminal` file.
+**New Installation**
+
+Atom configuration is stored in `.atom`. When installing Atom on a new computer, copy the following files from `.atom` to `~/.atom`:
+
+* config.cson
+* keymap.cson
+* snippets.cson
+* styles.less
+
+Then, run `apm install --packages-file ~/.dotfiles/.atom/package-list.txt` to install our Atom packages.
+
+**Periodically Backing Up**
+
+Periodically, run `atom-backup`, which copies the atom config and package list to `.atom`.
 
 ## Begin Ryan Bates Documentation
 
