@@ -21,15 +21,15 @@ Then, run `apm install --packages-file ~/.dotfiles/.atom/package-list.txt` to in
 
 Periodically, run `atom-backup`, which copies the atom config and package list to `.atom`.
 
+## Terminal Setup
+
+I use iTerm, with the Smyck theme (see terminal/smyck) and 14 pt [Meslo Lg L Regular](https://github.com/powerline/fonts/tree/master/Meslo) font.
+
 ## Begin Ryan Bates Documentation
 
 These are config files to set up a system the way I like it. It now uses [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh). If you would like to see my old, custom Bash and ZSH config, check out [this branch](https://github.com/ryanb/dotfiles/tree/custom-bash-zsh)
 
 I am running on Mac OS X, but it will likely work on Linux as well.
-
-## Terminal Setup
-
-I use iTerm, with the Smyck theme (see terminal/smyck) and 14 pt [Meslo Lg L Regular](https://github.com/powerline/fonts/tree/master/Meslo) font.
 
 ## Installation
 
