@@ -27,6 +27,9 @@ These are config files to set up a system the way I like it. It now uses [Oh My 
 
 I am running on Mac OS X, but it will likely work on Linux as well.
 
+## Terminal Setup
+
+I use iTerm, with the Smyck theme (see terminal/smyck) and 14 pt [Meslo Lg L Regular](https://github.com/powerline/fonts/tree/master/Meslo) font.
 
 ## Installation
 
